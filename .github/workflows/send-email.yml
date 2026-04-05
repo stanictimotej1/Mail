@@ -1,30 +1,22 @@
 name: Send Test Email
 
 on:
-  workflow_dispatch: # Ročni zagon iz GitHub UI
+  workflow_dispatch:
 
 jobs:
   send-email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send test email via Outlook SMTP
-        uses: dawidd6/action-send-mail@v4
-        with:
-          server_address: smtp.sendgrid.net
-          server_port: 587
-          secure: false
-          username: apikey
-          password: ${{ secrets.SENDGRID_API_KEY }}
-          subject: "✅ Test email iz GitHub Actions"
-          to: ${{ secrets.MAIL_TO }}
-          from: ${{ secrets.MAIL_FROM }}
-          body: |
-            Pozdravljen!
-
-            Ta email je bil poslan avtomatsko iz GitHub Actions.
-
-            Repozitorij: ${{ github.repository }}
-            Čas: ${{ github.run_id }}
-
-            Sistem deluje! 🎉
+      - name: Send email via SendGrid API
+        run: |
+          curl --request POST \
+            --url https://api.sendgrid.com/v3/mail/send \
+            --header "Authorization: Bearer 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" \
+            --header "Content-Type: application/json" \
+            --data '{
+              "personalizations": [{"to": [{"email": "stanic.timotej1@gmail.com"}]}],
+              "from": {"email": "stanic.timotej1@gmail.com"},
+              "subject": "Test email iz GitHub Actions",
+              "content": [{"type": "text/plain", "value": "Sistem deluje!"}]
+            }'
