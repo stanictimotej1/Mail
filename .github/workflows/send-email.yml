@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Send test email via Outlook SMTP
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v4
         with:
           server_address: smtp.sendgrid.net
           server_port: 587
