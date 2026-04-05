@@ -12,7 +12,7 @@ jobs:
         run: |
           curl --request POST \
             --url https://api.sendgrid.com/v3/mail/send \
-            --header "Authorization: Bearer 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" \
+            --header "Authorization: Bearer ${{ secrets.SENDGRID_API_KEY }}" \
             --header "Content-Type: application/json" \
             --data '{
               "personalizations": [{"to": [{"email": "stanic.timotej1@gmail.com"}]}],
