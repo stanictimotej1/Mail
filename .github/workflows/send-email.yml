@@ -1,0 +1,30 @@
+name: Send Test Email
+
+on:
+  workflow_dispatch: # Ročni zagon iz GitHub UI
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send test email via Outlook SMTP
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.office365.com
+          server_port: 587
+          secure: false
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "✅ Test email iz GitHub Actions"
+          to: ${{ secrets.MAIL_USERNAME }}
+          from: ${{ secrets.MAIL_USERNAME }}
+          body: |
+            Pozdravljen!
+
+            Ta email je bil poslan avtomatsko iz GitHub Actions.
+
+            Repozitorij: ${{ github.repository }}
+            Čas: ${{ github.run_id }}
+
+            Sistem deluje! 🎉
