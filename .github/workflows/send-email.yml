@@ -11,14 +11,14 @@ jobs:
       - name: Send test email via Outlook SMTP
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.office365.com
+          server_address: smtp.sendgrid.net
           server_port: 587
           secure: false
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
+          username: apikey
+          password: ${{ secrets.SENDGRID_API_KEY }}
           subject: "✅ Test email iz GitHub Actions"
-          to: ${{ secrets.MAIL_USERNAME }}
-          from: ${{ secrets.MAIL_USERNAME }}
+          to: ${{ secrets.MAIL_TO }}
+          from: ${{ secrets.MAIL_FROM }}
           body: |
             Pozdravljen!
 
